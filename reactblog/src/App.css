@@ -1,0 +1,12 @@
+.App {
+  text-align: center;
+}
+
+.ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+  min-height: 500px;
+}
+
+.form-warrper {
+  width: 60%;
+  margin: 0 auto; /* 이걸로 가운데정렬이 됨 */
+}
