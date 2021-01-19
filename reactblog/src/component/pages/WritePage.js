@@ -1,17 +1,41 @@
 import React, { useState } from "react";
-import Editor from "./CKEditor";
+import Editor from "../common/CKEditor";
+import Header from "../common/Header";
+import { useStateDeco } from "../../context/DecoSetContext";
+import { useListDispatch, useListNextId } from "../../context/ListContext";
 
-function Body() {
+function WritePage() {
   const [title, setTitle] = useState("");
+
+  const dispatch = useListDispatch();
+  const decoState = useStateDeco();
+  const nextId = useListNextId();
+
   const onChange = (e) => {
     setTitle(e.target.value);
     console.log(title);
   };
-  const onSubmit = () => {};
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log("decoState = ", decoState);
+    dispatch({
+      type: "INSERT",
+      list: {
+        id: nextId.current,
+        title: title,
+        decoration: decoState,
+      },
+    });
+    setTitle("");
+    nextId.current += 1;
+  };
 
   return (
     <div>
-      <form>
+      <Header headText="WritePage" />
+      <br />
+      <form onSubmit={onSubmit}>
         <div className="ui input" style={{ width: "500px", height: "50px" }}>
           <input
             type="text"
@@ -37,4 +61,4 @@ function Body() {
   );
 }
 
-export default Body;
+export default WritePage;

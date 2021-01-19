@@ -10,3 +10,19 @@
   width: 60%;
   margin: 0 auto; /* 이걸로 가운데정렬이 됨 */
 }
+
+.login {
+  vertical-align: middle;
+  height: 300px;
+  width: 20%;
+  margin: 0 auto;
+}
+
+.login.flexDisplay.logH4 {
+  width: 20%;
+  margin: 0 auto;
+}
+.login.flexDisplay.logInput {
+  width: 80%;
+  margin: 0 auto;
+}
