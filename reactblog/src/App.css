@@ -26,3 +26,12 @@
   width: 80%;
   margin: 0 auto;
 }
+
+.backgray {
+  background-color: gray;
+}
+
+.redFont {
+  color: red;
+  font: bold;
+}

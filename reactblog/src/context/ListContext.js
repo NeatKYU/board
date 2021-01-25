@@ -1,12 +1,16 @@
-import React, { createContext, useContext, useRef, useReducer } from "react";
+import React, {
+  createContext,
+  useContext,
+  useRef,
+  useReducer,
+  useEffect,
+  useState,
+} from "react";
+import axios from "axios";
 
-const initialList = [
-  {
-    id: 1,
-    title: "first wirte",
-    decoration: "wirte test text",
-  },
-];
+const initialList = {
+  lists: [],
+};
 
 function reducer(state, action) {
   if (!action) {
@@ -16,7 +20,13 @@ function reducer(state, action) {
     case "INSERT":
       return state.concat(action.list);
     case "REMOVE":
-      return state.filter((list) => list.id !== action.id);
+      return state.filter((list) => list.sid !== action.sid);
+    case "GET_LIST":
+      console.log("getlist data = ", action.lists);
+      return {
+        ...state,
+        lists: action.lists,
+      };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -52,4 +62,13 @@ export function useListDispatch() {
 
 export function useListNextId() {
   return useContext(ListNextIdContext);
+}
+
+export async function getList(dispatch) {
+  try {
+    const response = await axios.get("http://localhost:8000/list/getTest");
+    dispatch({ type: "GET_LIST", lists: response.data });
+  } catch (e) {
+    console.log(e);
+  }
 }

@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../common/Header";
+import axios from "axios";
 
 function LoginPage() {
+  const [users, setUsers] = useState(null);
+  const onClick = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/login/getTest", {
+        crossdomain: true,
+      });
+      setUsers(response.data);
+      console.log("res data = ", response.data);
+      console.log("user data = ", users);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div>
       <Header headText="회원가입" />
@@ -33,7 +48,9 @@ function LoginPage() {
         </div>
       </div>
       <div>
-        <button className="ui primary button">제출</button>
+        <button className="ui primary button" onClick={onClick}>
+          제출
+        </button>
       </div>
     </div>
   );
