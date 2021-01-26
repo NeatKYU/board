@@ -27,6 +27,12 @@ function reducer(state, action) {
         ...state,
         lists: action.lists,
       };
+    case "GET_LIST_COUNT":
+      console.log("getlistcount data = ", action.count);
+      return {
+        ...state,
+        count: action.count,
+      };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -68,6 +74,15 @@ export async function getList(dispatch) {
   try {
     const response = await axios.get("http://localhost:8000/list/getTest");
     dispatch({ type: "GET_LIST", lists: response.data });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function getListCount(dispatch) {
+  try {
+    const response = await axios.get("http://localhost:8000/list/getSize");
+    dispatch({ type: "GET_LIST_COUNT", count: response.data });
   } catch (e) {
     console.log(e);
   }

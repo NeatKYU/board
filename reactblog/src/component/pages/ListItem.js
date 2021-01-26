@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function ListItem({ title, date, section }) {
+function ListItem({ title, date, section, userId, viewCount }) {
   const [sectionCheck, setSectionCheck] = useState("");
 
   useEffect(() => {
@@ -9,7 +9,6 @@ function ListItem({ title, date, section }) {
     }
   }, [sectionCheck]);
 
-  console.log("sectionCheck=", sectionCheck);
   return (
     <div className="ui computer equal width grid">
       <div className={`column ${sectionCheck}`}>
@@ -18,9 +17,9 @@ function ListItem({ title, date, section }) {
       <div className="column" style={{ fontSize: "20px" }}>
         {title}
       </div>
-      <div className="column">작성자</div>
+      <div className="column">{userId}</div>
       <div className="column">{date}</div>
-      <div className="column">조회수</div>
+      <div className="column">{viewCount}</div>
     </div>
   );
 }

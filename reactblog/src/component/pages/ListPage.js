@@ -1,24 +1,37 @@
-import React, { useEffect } from "react";
+// react 라이브러리
+import React, { useEffect, useState } from "react";
+
+// contextAPI
 import {
   useListState,
   getList,
   useListDispatch,
+  getListCount,
 } from "../../context/ListContext";
+
+// 컴포넌트 불러오기
 import Header from "../common/Header";
 import ListItem from "./ListItem";
+import Page from "./PageNation";
 
 function ListPage() {
   const state = useListState();
   const dispatch = useListDispatch();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostsPerPage] = useState(3);
 
   useEffect(() => {
     const fetchData = async () => {
+      //contextAPI에 있는 기능 사용
       await getList(dispatch);
+      await getListCount(dispatch);
     };
     fetchData();
   }, []);
 
-  console.log("listPage state=", state.lists);
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const currentPosts = state.lists.slice(indexOfFirstPost, indexOfLastPost);
 
   return (
     <div>
@@ -35,16 +48,27 @@ function ListPage() {
       </div>
       <br />
       <div>
-        {state &&
-          state.lists.map((e) => (
+        {currentPosts &&
+          currentPosts.map((e) => (
             <ListItem
-              key={e.title}
+              key={e.sid}
               title={e.title}
+              context={e.context}
               date={e.date}
               section={e.section}
+              userId={e.user_id}
+              viewCount={e.view_count}
             />
           ))}
       </div>
+      <br />
+      <br />
+      <div>
+        <Page listCount={state.count} postPerPage={postPerPage} />
+      </div>
+      <br />
+      <br />
+      <br />
     </div>
   );
 }
