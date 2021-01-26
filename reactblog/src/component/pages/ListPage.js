@@ -33,6 +33,8 @@ function ListPage() {
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPosts = state.lists.slice(indexOfFirstPost, indexOfLastPost);
 
+  console.log("currentpage = ", currentPage);
+
   return (
     <div>
       <Header headText="ListPage" />
@@ -64,7 +66,12 @@ function ListPage() {
       <br />
       <br />
       <div>
-        <Page listCount={state.count} postPerPage={postPerPage} />
+        <Page
+          listCount={state.count}
+          postPerPage={postPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
       <br />
       <br />

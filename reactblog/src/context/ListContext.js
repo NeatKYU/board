@@ -33,6 +33,11 @@ function reducer(state, action) {
         ...state,
         count: action.count,
       };
+    case "SET_CURRENTPAGE":
+      return {
+        ...state,
+        currentpostpage: action.currentpostpage,
+      };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -86,4 +91,8 @@ export async function getListCount(dispatch) {
   } catch (e) {
     console.log(e);
   }
+}
+
+export function setCurrentPostPage(dispatch, currentPostPage) {
+  dispatch({ type: "SET_CURRENTPAGE", currentpostpage: currentPostPage });
 }
