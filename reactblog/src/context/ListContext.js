@@ -19,7 +19,10 @@ function reducer(state, action) {
   }
   switch (action.type) {
     case "INSERT":
-      return state.list.concat(action.list);
+      return {
+        ...state,
+        list: action.list,
+      };
     case "REMOVE":
       return state.filter((list) => list.sid !== action.sid);
     case "GET_LIST":
