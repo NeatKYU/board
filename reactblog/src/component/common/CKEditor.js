@@ -9,9 +9,8 @@ function CKEditorFunc() {
   const decoState = useStateDeco();
 
   const decoSet = () => {
-    console.log("editor deco1=", decoState.deco);
     dispatch({ type: "DECO_SET", deco: decoData });
-    console.log("editor deco2=", decoState);
+    console.log("editor deco=", decoState);
   };
 
   return (

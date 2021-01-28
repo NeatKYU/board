@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 function ListItem({ title, date, section, userId, viewCount }) {
   const [sectionCheck, setSectionCheck] = useState("");
@@ -15,7 +16,7 @@ function ListItem({ title, date, section, userId, viewCount }) {
         {section === "Y" ? "공지글" : "일반글"}
       </div>
       <div className="column" style={{ fontSize: "20px" }}>
-        {title}
+        <NavLink to="/writedetail">{title}</NavLink>
       </div>
       <div className="column">{userId}</div>
       <div className="column">{date}</div>

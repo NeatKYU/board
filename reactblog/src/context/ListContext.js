@@ -10,6 +10,7 @@ import axios from "axios";
 
 const initialList = {
   lists: [],
+  list: [],
 };
 
 function reducer(state, action) {
@@ -18,7 +19,7 @@ function reducer(state, action) {
   }
   switch (action.type) {
     case "INSERT":
-      return state.concat(action.list);
+      return state.list.concat(action.list);
     case "REMOVE":
       return state.filter((list) => list.sid !== action.sid);
     case "GET_LIST":
@@ -95,4 +96,23 @@ export async function getListCount(dispatch) {
 
 export function setCurrentPostPage(dispatch, currentPostPage) {
   dispatch({ type: "SET_CURRENTPAGE", currentpostpage: currentPostPage });
+}
+
+export async function insertPost(state) {
+  try {
+    console.log("state value = ", state);
+    await axios.post("http://localhost:8000/list/setTest", {
+      params: {
+        sid: "",
+        title: state.list.title,
+        context: state.list.content,
+        user_id: "SEUNG",
+        date: "",
+        view_count: "",
+        section: "n",
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
 }

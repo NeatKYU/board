@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import Editor from "../common/CKEditor";
 import Header from "../common/Header";
 import { useStateDeco } from "../../context/DecoSetContext";
-import { useListDispatch, useListNextId } from "../../context/ListContext";
+import {
+  useListDispatch,
+  useListState,
+  useListNextId,
+  insertPost,
+} from "../../context/ListContext";
 
 function WritePage() {
   const [title, setTitle] = useState("");
 
+  const state = useListState();
   const dispatch = useListDispatch();
   const decoState = useStateDeco();
   const nextId = useListNextId();
@@ -22,11 +28,11 @@ function WritePage() {
     dispatch({
       type: "INSERT",
       list: {
-        id: nextId.current,
         title: title,
-        decoration: decoState,
+        content: decoState,
       },
     });
+    insertPost(state);
     setTitle("");
     nextId.current += 1;
   };
@@ -53,7 +59,9 @@ function WritePage() {
         <br />
         <br />
         <div>
-          <button className="ui secondary button">저장</button>
+          <button className="ui secondary button" onClick={onSubmit}>
+            저장
+          </button>
           <button className="ui button">취소</button>
         </div>
       </form>
