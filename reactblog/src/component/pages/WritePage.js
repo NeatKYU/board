@@ -29,7 +29,7 @@ function WritePage() {
       type: "INSERT",
       list: {
         title: title,
-        content: decoState,
+        content: decoState.deco,
       },
     });
     insertPost(state);

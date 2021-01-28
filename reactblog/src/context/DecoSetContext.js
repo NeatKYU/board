@@ -7,7 +7,10 @@ const initialDeco = {
 function reducer(state, action) {
   switch (action.type) {
     case "DECO_SET":
-      return (state.deco = action.deco);
+      return {
+        ...state,
+        deco: action.deco,
+      };
     default:
       return;
   }
